@@ -19,13 +19,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       form.parse(req, (err, _fields, files) => {
         if (err) {
           return res.status(500).json({
-            message: err.message,
+            error: err.message,
           });
         }
 
         if (!files || !files.file) {
           return res.status(400).json({
-            message: "No file uploaded or file is not an image",
+            error: "No file uploaded or file is not an image",
           });
         }
 
@@ -35,13 +35,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         cloudinary.uploader.upload(image[0].filepath, (err, result) => {
           if (err) {
             return res.status(500).json({
-              message: err.message,
+              error: err.message,
             });
           }
 
           return res.status(200).json({
-            message: "File uploaded",
-            result,
+            url: result?.secure_url,
           });
         });
       });
