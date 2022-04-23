@@ -7,9 +7,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   switch (method) {
     case "POST":
-      console.log(process.env.CLOUDINARY_URL);
       const form = formidable({
         multiples: true,
+        filter: ({ mimetype }) => {
+          // keep only images
+          const starts = mimetype?.startsWith("image");
+          return starts ?? false;
+        },
       });
 
       form.parse(req, (err, _fields, files) => {
@@ -18,6 +22,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             message: err.message,
           });
         }
+
+        if (!files || !files.file) {
+          return res.status(400).json({
+            message: "No file uploaded or file is not an image",
+          });
+        }
+
         // I ensure that it's an array, if not it will not have the filepath property
         const image = Array.isArray(files.file) ? files.file : [files.file];
 
