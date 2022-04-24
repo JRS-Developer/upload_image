@@ -4,7 +4,7 @@ import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
+    <Layout image="/preview.png">
       <Component {...pageProps} />
     </Layout>
   );
