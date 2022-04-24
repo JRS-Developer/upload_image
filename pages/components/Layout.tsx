@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function Layout({ children, image }: Props) {
-  image = window.location.origin + image;
+  image = "https://" + process.env.NEXT_PUBLIC_VERCEL_URL + image; // This way I can use the image in the layout
   return (
     <>
       <Head>
