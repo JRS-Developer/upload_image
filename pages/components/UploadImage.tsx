@@ -24,12 +24,14 @@ const UploadImage = ({ onDrop }: Props) => {
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={onDrop}
-      className="flex flex-col items-center p-8 outline-2 outline-blue-400/50 outline-dashed rounded-xl w-80 gap-9 bg-neutral-100 select-none transition-opacity"
+      className="flex flex-col items-center p-8 outline-2 outline-blue-400/50 outline-dashed rounded-xl gap-9 bg-neutral-100 select-none transition-opacity"
     >
       <div className="pointer-events-none">
-        <Image src="/upload.svg" alt="" width={115} height={90} />
+        <Image src="/upload.svg" alt="" width={115} height={90} priority />
       </div>
-      <p className="text-gray-4 text-xs">Drag & Drop your image here</p>
+      <p className="text-gray-4 text-xs text-center 2xl:text-sm">
+        Drag & Drop your image here
+      </p>
     </div>
   );
 };
