@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
@@ -56,7 +57,21 @@ export default function Layout({ children, image }: Props) {
         <meta property="twitter:image" content={image} key="twitter:image" />
       </Head>
       <main>{children}</main>
-      <footer>Hola</footer>
+      <footer className="text-center text-xs text-gray-2 p-4">
+        Challenge by{" "}
+        <Link href="https://devchallenges.io/">
+          <a className="underline" target="_blank">
+            devChallenges
+          </a>
+        </Link>
+        <br />
+        Coded by{" "}
+        <Link href="https://github.com/JRS-Developer/">
+          <a className="underline" target="_blank">
+            Jose Sanchez | JRS-Developer
+          </a>
+        </Link>
+      </footer>
     </>
   );
 }
