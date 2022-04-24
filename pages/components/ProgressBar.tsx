@@ -5,7 +5,7 @@ interface Props {
 
 const ProgressBar = ({ value = 0, height }: Props) => {
   const indeterminableClass =
-    "absolute left-0 top-0 min-w-[50%] animate-indeterminate";
+    "absolute left-0 top-0 min-w-[30%] animate-indeterminate";
 
   return (
     <div
