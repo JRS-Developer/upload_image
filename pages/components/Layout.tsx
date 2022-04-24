@@ -6,6 +6,7 @@ interface Props {
 }
 
 export default function Layout({ children, image }: Props) {
+  image = window.location.origin + image;
   return (
     <>
       <Head>
