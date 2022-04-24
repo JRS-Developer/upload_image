@@ -1,10 +1,19 @@
 import Image from "next/image";
 import type { NextPage } from "next";
 import { useState } from "react";
+import Button from "./components/Button";
+import UploadForm from "./components/UploadForm";
+import ProgressBar from "./components/ProgressBar";
 
 interface UploadImgResponse {
   url: string;
 }
+
+const Container = ({ children }: { children: React.ReactNode }) => (
+  <div className="min-h-screen flex justify-center items-center">
+    <div className="shadow-md px-8 py-9 rounded-lg">{children}</div>
+  </div>
+);
 
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
@@ -46,48 +55,32 @@ const Home: NextPage = () => {
 
   if (loading)
     return (
-      <div>
-        <p>Uploading...</p>
-        <div></div>
-      </div>
+      <Container>
+        <div className="flex flex-col gap-7">
+          <p className="text-lg">Uploading...</p>
+          <ProgressBar />
+        </div>
+      </Container>
     );
 
   if (image) {
     return (
-      <div>
+      <Container>
         <h3>Uploaded Successfully!</h3>
         <Image src={image} height={500} width={500} alt="Uploaded image" />
         <div>
           <p>{image}</p>
-          <button onClick={handleCopyClick}>Copy Link</button>
+          <Button onClick={handleCopyClick}>Copy Link</Button>
         </div>
-      </div>
+      </Container>
     );
   }
 
   return (
     <>
-      <form>
-        <div>
-          <h1>Upload your image</h1>
-          <p>File should be Jpeg, Png...</p>
-        </div>
-        <div onDragOver={(e) => e.preventDefault()} onDrop={handleDrop}>
-          <Image src="/upload.svg" alt="" width={115} height={90} />
-          <p>Drag & Drop your image here</p>
-        </div>
-        <span>Or</span>
-        <label htmlFor="upload-image">
-          <input
-            type="file"
-            accept="image/*"
-            id="upload-image"
-            style={{ display: "none" }}
-            onChange={handleChange}
-          />
-          <span>Choose a file</span>
-        </label>
-      </form>
+      <Container>
+        <UploadForm onChange={handleChange} onDrop={handleDrop} />
+      </Container>
     </>
   );
 };
